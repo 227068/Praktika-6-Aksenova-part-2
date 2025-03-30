@@ -1,4 +1,9 @@
 # Praktika-6-Aksenova-part-2
+Цель практической работы: провести тестирование разработанных
+программных модулей авторизации и регистрации пользователей с
+использованием средств автоматизации Microsoft Visual Studio методом
+"белого ящика"
+
 Для начала создадим в SQL Server пустую базу данных. 
 
 USE PR6Aksenova;
@@ -29,6 +34,56 @@ INSERT INTO [User] (Login, Password, Role, FIO, [Пол], [НомерТелеф�
 ('user9', 'hashed_password_11', 'User', 'Соколов Павел Андреевич', 'Мужской', '+79123456789'),
 ('guest1', 'hashed_password_12', 'Guest', 'Гостев Гость Гостевич', null, null);
 
+Создадим ещё несколько таблиц для данной базы данных и построим модель базы в Visual Studio:
+![image](https://github.com/user-attachments/assets/71350759-8f90-40b0-a488-8c11e7a21737)
+
+
 ![image](https://github.com/user-attachments/assets/bc71f2be-51a8-4ed1-a616-84a50078b24b)
+![image](https://github.com/user-attachments/assets/0913df56-f378-49ac-ac1c-fec697ee6aa5)
+
+Создадим модульные тесты в Visual Studio:
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class UnitTest1
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            int res = 2 + 2;
+            Assert.AreEqual(res, 4);
+            Assert.AreNotEqual(res, 5);
+            Assert.IsFalse(res > 5);
+            Assert.IsTrue(res < 5);
+        }
+    }
+}
+![image](https://github.com/user-attachments/assets/496a1452-2ec7-43e6-aa03-636dd66bc573)
+
+namespace UnitTestProject1
+{
+    [TestClass]
+    public class UnitTest2
+    {
+        [TestMethod]
+        public void AuthTest()
+        {
+            var page = new Authorization();
+            Assert.IsTrue(page.Auth("test", "test"));
+            Assert.IsFalse(page.Auth("user1", "12345"));
+            Assert.IsFalse(page.Auth("", ""));
+            Assert.IsFalse(page.Auth(" ", " "));
+        }
+    }
+}
+![image](https://github.com/user-attachments/assets/b4780d1e-8950-44f1-a72a-e3d608106cbd)
+
+
+
+
 
 
